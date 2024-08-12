@@ -10,5 +10,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "node ./cmd/main.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
   }
 }
