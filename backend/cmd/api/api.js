@@ -1,5 +1,6 @@
 import express from 'express';
 import { AuthRoutes } from '../../services/auth/routes.js';
+import { TestRouter } from '../../services/test/routes.js';
 
 function StartAPIServer() {
     try {
@@ -11,6 +12,7 @@ function StartAPIServer() {
 
         // Routing connectios
         app.use('/auth', AuthRoutes)
+        app.use('/test', TestRouter)
 
         app.listen(port, () => {
             console.log("Server rodando na porta:", port)

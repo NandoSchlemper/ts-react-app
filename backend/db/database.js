@@ -2,23 +2,33 @@ import { mongoose } from 'mongoose';
 import { config } from 'dotenv';
 config();
 
+// Definindo schemas
+const UserSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    token: String,
+})
+
+// User model
+const User = mongoose.model('User', UserSchema)
+
+const AssetSchema = new mongoose.Schema({
+    name: String,
+    properties: {type: Map, of: mongoose.Schema.Types.Mixed},
+});
+
+const DatabaseSchema = new mongoose.Schema({
+    name: String,
+    Assets: [AssetSchema],
+});
+
+// Database model
+const Database = mongoose.model('Database', DatabaseSchema);
+
 async function connect_db() {
     try {
         await mongoose.connect(process.env.DB_URI);
-        console.log("Conectado com o databasE MongoDB")
-
-        // Definindo schemas
-        const AssetSchema = new mongoose.Schema({
-            name: String,
-            properties: {type: Map, of: mongoose.Schema.Types.Mixed},
-        });
-
-        const DatabaseSchema = new mongoose.Schema({
-            name: String,
-            Assets: [AssetSchema],
-        });
-
-        const Database = mongoose.model('Database', DatabaseSchema);
+        console.log("Conectado com o database: MongoDB ;)")
 
         const TestItem = new Database({
             name: "Teste1",
@@ -39,4 +49,4 @@ async function connect_db() {
     }
 }
 
-export {connect_db}
+export {connect_db, Database, User}
