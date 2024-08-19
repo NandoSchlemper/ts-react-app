@@ -2,6 +2,7 @@ import { mongoose } from 'mongoose';
 import { config } from 'dotenv';
 config();
 
+
 // Definindo schemas
 const UserSchema = new mongoose.Schema({
     username: {
@@ -15,16 +16,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
-    tokens: [
-        {
-            tokens: {
-                type: String,
-                required: true
-            },
-        },
-    ],
 })
+
 
 UserSchema.methods.verifyPassword = async function (password) {
     const user = this;
@@ -33,7 +26,6 @@ UserSchema.methods.verifyPassword = async function (password) {
 }
 // User model
 const User = mongoose.model('User', UserSchema)
-
 
 const AssetSchema = new mongoose.Schema({
     name: String,
@@ -52,21 +44,6 @@ async function connect_db() {
     try {
         await mongoose.connect(process.env.DB_URI);
         console.log("Conectado com o database: MongoDB ;)")
-        
-        const TestItem = new Database({
-            name: "Teste1",
-            Assets: [{
-                name: "Jogo do mengão",
-                properties: {
-                    "Pontuação mengão":10,
-                    "Pontuação timão":15,
-                }
-            }]
-        });
-
-        await TestItem.save();
-        console.log("Database + Asset de testes adicionados com sucesso!")
-
     } catch (error) {
         console.log("Erro ao se connectar ao DB: " + error)
     }
