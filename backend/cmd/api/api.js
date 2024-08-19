@@ -22,4 +22,4 @@ function StartAPIServer() {
     }
 }
 
-export {StartAPIServer}
+export { StartAPIServer }
