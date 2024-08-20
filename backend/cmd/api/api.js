@@ -10,6 +10,11 @@ function StartAPIServer() {
         // Json Middleware
         app.use(express.json());
 
+        // Index
+        app.get('/', (req, res) => {
+            res.send("Yello")
+        })
+
         // Routing connectios
         app.use('/auth', AuthRoutes)
         app.use('/test', TestRouter)
@@ -18,6 +23,7 @@ function StartAPIServer() {
             console.log("Server rodando na porta:", port)
         })
     } catch (err) {
+        // Console log do erro
         console.log("Erro ao iniciar o servidor:", err)
     }
 }

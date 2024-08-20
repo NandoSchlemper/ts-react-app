@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     },
 })
 
-
+// Metodo para verificar o password do usuario  
 UserSchema.methods.verifyPassword = async function (password) {
     const user = this;
     const isMatch = await bcrypt.compare(password, user.password);
@@ -27,10 +27,14 @@ UserSchema.methods.verifyPassword = async function (password) {
 // User model
 const User = mongoose.model('User', UserSchema)
 
+
+
 const AssetSchema = new mongoose.Schema({
     name: String,
     properties: {type: Map, of: mongoose.Schema.Types.Mixed},
 });
+
+
 
 const DatabaseSchema = new mongoose.Schema({
     name: String,
@@ -40,6 +44,8 @@ const DatabaseSchema = new mongoose.Schema({
 // Database model
 const Database = mongoose.model('Database', DatabaseSchema);
 
+
+// Asyncronous DB connection
 async function connect_db() {
     try {
         await mongoose.connect(process.env.DB_URI);
